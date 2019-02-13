@@ -1,12 +1,15 @@
 <template>
   <div class="VueForm">
-    <template v-for="(field,idx) in schema.fields">
-        <component 
-          :is="field.type"
-          :key="field + idx" 
-          :field="field" 
-          :data.sync="data[field.name]"></component>
+    <form @submit.prevent="submit">
+      <template v-for="(field,idx) in schema.fields">
+          <component 
+            :is="field.type"
+            :key="field + idx" 
+            :field="field" 
+            :data.sync="data[field.name]"></component>
 </template>
+  <button type="submit">Submit</button>
+    </form>
   </div>
 </template>
 
@@ -21,10 +24,15 @@
     },
     props: {
       schema: {
-        required:false
+        required: false
       },
       data: {
         required: false
+      }
+    },
+    methods: {
+      submit() {
+      alert(JSON.stringify(this.data, null, ' '))
       }
     }
   }
